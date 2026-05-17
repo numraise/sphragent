@@ -7,11 +7,16 @@
 - ผู้เล่น 1 คนมี SuperHero Agent ได้ 1 ตัว
 - แสดงชื่อเจ้าของเหนือหัว Agent
 - เมื่อสร้าง Agent ใกล้ผู้เล่น ระบบจะผูก Agent กับผู้เล่นคนนั้นอัตโนมัติ
+- Agent ลอยอยู่ข้างผู้เล่น
+- ถ้าวางไข่ตัวใหม่ Agent เดิมจะ teleport กลับมาหาผู้เล่น แม้อยู่คนละมิติ
+- แสดงค่า `HP` และ `STR` ข้างชื่อ
 - ติดตามเจ้าของ
 - ป้องกันเจ้าของและโจมตี hostile mobs รอบตัว
 - มีเลือด เจ็บได้ ตายได้
 - ฟื้นเลือดด้วย `bread`, `cooked beef`, `golden apple`
 - เพิ่มพลังด้วย `iron ingot`, `gold ingot`, `diamond`
+- คำสั่งใน extension: `fight`, `heal player`, `defend`, `light mode`
+- `light mode` ให้แสงรอบ Agent และทำให้ค่า Strength ค่อย ๆ ลดลง
 
 ## ระดับพลัง
 - Level 1: เริ่มต้น

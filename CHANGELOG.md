@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 - 2026-05-17
+
+- Made SuperHero Agent float beside its owner
+- Reused the existing hero when a new egg is placed and teleported it across dimensions
+- Added live `HP` and `STR` display in the name tag
+- Added MakeCode command blocks for fight, heal player, defend, and light mode
+- Added light mode with gradual Strength drain
+
 ## 1.2.2 - 2026-05-17
 
 - Added Minecraft target metadata expected by MakeCode extensions

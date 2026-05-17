@@ -8,7 +8,9 @@ Each player gets one personal hero that follows them, protects them from hostile
 - one SuperHero Agent per player
 - owner's player name shown above the hero
 - automatically protects the owner and attacks nearby hostile mobs
+- floats beside its owner and returns across dimensions when a new egg is placed
 - can be hurt and can die
+- shows live `HP` and `STR` values beside its name
 - heals with `bread`, `cooked beef`, and `golden apple`
 - upgrades with `iron ingot`, `gold ingot`, and `diamond`
 - designed for Minecraft Education `1.21.133`
@@ -32,6 +34,15 @@ Each player gets one personal hero that follows them, protects them from hostile
 | `iron ingot` | upgrade to Level 2 |
 | `gold ingot` | upgrade to Level 3 |
 | `diamond` | upgrade to Level 4 |
+
+## MakeCode command blocks
+
+- `SuperHero Agent fight`
+- `SuperHero Agent heal player`
+- `SuperHero Agent defend`
+- `SuperHero Agent light mode`
+
+`light mode` creates local illumination around the hero while gradually draining Strength.
 
 ## Repository layout
 
