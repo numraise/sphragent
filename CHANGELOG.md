@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2 - 2026-05-17
+
+- Added Minecraft target metadata expected by MakeCode extensions
+- Added `builder` dependency plus `test.ts` and `tsconfig.json`
+
 ## 1.2.1 - 2026-05-17
 
 - Moved MakeCode extension entry files to the repository root

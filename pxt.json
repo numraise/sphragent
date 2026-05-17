@@ -1,14 +1,25 @@
 {
   "name": "sphragent",
   "description": "Member-safe MakeCode helper blocks for SuperHero Agent classroom activities in Minecraft Education",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "dependencies": {
-    "core": "*"
+    "core": "*",
+    "builder": "*"
   },
   "files": [
     "main.ts",
     "README.md"
   ],
+  "testFiles": [
+    "test.ts"
+  ],
+  "targetVersions": {
+    "target": "1.6.27",
+    "targetId": "minecraft"
+  },
+  "supportedTargets": [
+    "minecraft"
+  ],
   "public": true,
-  "preferredEditor": "blocksprj"
+  "preferredEditor": "tsprj"
 }
