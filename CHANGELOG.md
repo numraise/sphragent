@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.1 - 2026-05-17
+
+- Reworked runtime state handling to avoid fragile dynamic-property behavior
+- Shortened hero name display to `SH`
+- Added scripted combat fallback against nearby hostile mobs
+- Added spin and combat particles during fights
+- Reworked light mode to place invisible light blocks via script commands
+
 ## 1.3.0 - 2026-05-17
 
 - Made SuperHero Agent float beside its owner

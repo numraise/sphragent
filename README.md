@@ -10,7 +10,7 @@ Each player gets one personal hero that follows them, protects them from hostile
 - automatically protects the owner and attacks nearby hostile mobs
 - floats beside its owner and returns across dimensions when a new egg is placed
 - can be hurt and can die
-- shows live `HP` and `STR` values beside its name
+- shows live `HP` and `STR` values beside its short name `SH`
 - heals with `bread`, `cooked beef`, and `golden apple`
 - upgrades with `iron ingot`, `gold ingot`, and `diamond`
 - designed for Minecraft Education `1.21.133`
@@ -43,6 +43,8 @@ Each player gets one personal hero that follows them, protects them from hostile
 - `SuperHero Agent light mode`
 
 `light mode` creates local illumination around the hero while gradually draining Strength.
+
+When fighting, SH now spins and emits combat particles so its state is visible at a glance.
 
 ## Repository layout
 
