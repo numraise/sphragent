@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1 - 2026-05-17
+
+- Moved MakeCode extension entry files to the repository root
+- Fixed direct GitHub URL import in MakeCode
+
 ## 1.2.0 - 2026-05-17
 
 - Replaced RoboTNT concept with SuperHero Agent

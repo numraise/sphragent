@@ -1,6 +1,6 @@
 # SuperHero Agent for Minecraft Education
 
-SuperHero Agent is a member-friendly companion add-on for Minecraft Education.  
+SuperHero Agent is a member-friendly companion add-on and MakeCode extension for Minecraft Education.  
 Each player gets one personal hero that follows them, protects them from hostile mobs, can be injured, can be healed, and grows stronger through in-game items.
 
 ## What it does
@@ -55,11 +55,13 @@ It avoids slash commands and focuses on classroom flow:
 - checkpoints
 - victory messages
 
-To import it into MakeCode:
+To import the MakeCode extension:
 
 1. Open **Extensions**
 2. Choose **GitHub URL**
 3. Paste `https://github.com/numraise/sphragent`
+
+The extension entry files live at the repository root so the plain GitHub URL works directly in MakeCode.
 
 ## Notes
 
