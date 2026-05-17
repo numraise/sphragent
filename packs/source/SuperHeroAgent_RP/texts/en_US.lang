@@ -1,2 +1,2 @@
-entity.mcblock:superhero_agent.name=SuperHero Agent
-item.spawn_egg.entity.mcblock:superhero_agent.name=Spawn SuperHero Agent
+entity.mcblock:superhero_agent.name=SH
+item.spawn_egg.entity.mcblock:superhero_agent.name=Spawn SH

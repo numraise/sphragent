@@ -78,9 +78,23 @@ The extension entry files live at the repository root so the plain GitHub URL wo
 
 ## Notes
 
-- Ownership and the one-hero-per-player rule are handled by a small script in the behavior pack.
+- The current release uses a small behavior-pack script for ownership, the one-hero-per-player rule, live `HP` / `STR` name tags, cross-dimension return behavior, MakeCode-triggered modes, and light mode.
+- Core combat, healing, and upgrade interactions are defined as normal add-on gameplay behavior.
+- If a future release removes the script dependency, expect the feature list to be reviewed: some convenience features may need to change unless they can be rebuilt with normal add-on components alone.
+- If a future release still depends on Script API or other experimental capabilities, the release notes should call that out before classroom rollout and list the required world settings.
 - The hero's current visual style is intentionally simple and easy to reskin later.
 - Runtime testing inside Minecraft Education is still recommended before classroom rollout.
+
+## Compatibility planning
+
+Two release paths are being considered:
+
+| Path | What it means for users |
+| --- | --- |
+| Pure add-on / gameplay only | No script-dependent setup; documentation should only promise features that work from behavior and resource packs alone. |
+| Script-backed release | Keeps richer automation, but the install guide and release notes must clearly list any required experimental features or world settings. |
+
+Before publishing either path, verify the final pack in a fresh world and update the feature list, quick start steps, and release notes to match what players can actually use.
 
 ## Thai guide
 

@@ -27,13 +27,19 @@
 
 ## ไฟล์สำคัญ
 - Add-on พร้อมใช้: `RaiseSuperHeroAgent.mcaddon`
-- Source add-on: `addon_src/SuperHeroAgent_BP` และ `addon_src/SuperHeroAgent_RP`
+- Source add-on: `packs/source/SuperHeroAgent_BP` และ `packs/source/SuperHeroAgent_RP`
 - MakeCode extension สำหรับ GitHub: `RaiseSuperHeroAgent`
 
 ## หมายเหตุด้านระบบ
-- การจำกัด 1 ตัวต่อผู้เล่น และการตั้งชื่อบนหัว ใช้ script เล็ก ๆ ใน behavior pack
+- เวอร์ชันปัจจุบันใช้ script เล็ก ๆ ใน behavior pack สำหรับการผูกเจ้าของ, จำกัด 1 ตัวต่อผู้เล่น, แสดงค่า `HP` / `STR`, เรียก Agent กลับข้ามมิติ, โหมดที่สั่งผ่าน MakeCode และ `light mode`
+- การต่อสู้ การฟื้นเลือด และการอัปเกรดหลักยังทำงานผ่าน gameplay ปกติของ add-on
 - MakeCode extension ถูกออกแบบให้ Member-safe โดยไม่เรียก slash command
 - เป้าหมายเวอร์ชัน: Minecraft Education 1.21.133
+
+## แนวทางสำหรับรุ่นถัดไป
+- ถ้าจะเปลี่ยนเป็น add-on แบบ gameplay ล้วน ต้องตรวจรายการความสามารถอีกครั้ง และเขียนเอกสารเฉพาะสิ่งที่ทำงานได้โดยไม่พึ่ง script
+- ถ้ายังต้องใช้ Script API หรือความสามารถแบบทดลอง ต้องระบุใน release notes และคู่มือติดตั้งให้ชัดเจนว่าต้องเปิด world setting ใดบ้าง
+- ก่อนปล่อยจริง ควรทดสอบในโลกใหม่และอัปเดตคู่มือให้ตรงกับพฤติกรรมที่ผู้เล่นเห็นจริง
 
 ## สิ่งที่ควรทดสอบในเกมจริง
 1. import add-on

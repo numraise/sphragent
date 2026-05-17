@@ -81,6 +81,9 @@
     },
     "components": {
       "minecraft:type_family": { "family": ["superhero_agent", "mob"] },
+      "minecraft:health": { "value": 20, "max": 20 },
+      "minecraft:attack": { "damage": 4 },
+      "minecraft:movement": { "value": 0.32 },
       "minecraft:nameable": { "always_show": true },
       "minecraft:collision_box": { "width": 0.8, "height": 1.8 },
       "minecraft:physics": { "has_gravity": false, "has_collision": true },
@@ -140,11 +143,24 @@
         ]
       },
       "minecraft:behavior.float": { "priority": 0 },
+      "minecraft:behavior.melee_attack": { "priority": 1, "speed_multiplier": 1.2, "track_target": true },
+      "minecraft:behavior.move_towards_target": { "priority": 2, "speed_multiplier": 1.1, "within_radius": 16 },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "reselect_targets": true,
+        "within_radius": 16,
+        "entity_types": [
+          {
+            "filters": { "test": "is_family", "subject": "other", "value": "monster" },
+            "max_dist": 12
+          }
+        ]
+      },
       "minecraft:behavior.look_at_player": { "priority": 8, "look_distance": 8 },
       "minecraft:damage_sensor": { "triggers": [{ "deals_damage": true }] }
     },
     "events": {
-      "minecraft:entity_spawned": { "add": { "component_groups": ["mcblock:level_1", "mcblock:fight_mode"] } },
+      "minecraft:entity_spawned": { "add": { "component_groups": ["mcblock:level_1"] } },
       "mcblock:on_tame": { "add": { "component_groups": ["mcblock:owned"] } },
       "mcblock:upgrade_level_2": {
         "remove": { "component_groups": ["mcblock:level_1", "mcblock:level_3", "mcblock:level_4"] },

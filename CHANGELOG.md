@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- Documented the current split between script-backed features and pure gameplay behavior
+- Added release-planning notes for a possible script-free add-on path or any build that requires experimental features
+
+## 1.4.0 - 2026-05-17
+
+- Bumped behavior/resource pack versions so Minecraft imports the update as a new release
+- Moved baseline health, attack, and hostile-mob combat into always-on entity components
+- Renamed the localized entity display name to `SH`
+- Kept script-backed features separate from the stable native behavior path
+
 ## 1.3.1 - 2026-05-17
 
 - Reworked runtime state handling to avoid fragile dynamic-property behavior
