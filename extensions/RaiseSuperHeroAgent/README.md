@@ -19,7 +19,6 @@ It only provides lesson-flow blocks such as instructions, mission text, countdow
 
 ## Import into MakeCode
 
-1. Publish this folder as a GitHub repository.
-2. In MakeCode for Minecraft, open **Extensions**.
-3. Choose **GitHub URL**.
-4. Paste the repository URL.
+1. In MakeCode for Minecraft, open **Extensions**.
+2. Choose **GitHub URL**.
+3. Paste `https://github.com/numraise/sphragent`

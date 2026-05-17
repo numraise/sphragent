@@ -55,11 +55,11 @@ It avoids slash commands and focuses on classroom flow:
 - checkpoints
 - victory messages
 
-To import it into MakeCode after publishing this repository:
+To import it into MakeCode:
 
 1. Open **Extensions**
 2. Choose **GitHub URL**
-3. Paste the repository URL
+3. Paste `https://github.com/numraise/sphragent`
 
 ## Notes
 
