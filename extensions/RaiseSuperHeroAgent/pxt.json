@@ -1,0 +1,13 @@
+{
+  "name": "raise-superhero-agent",
+  "description": "Member-safe MakeCode helper blocks for SuperHero Agent classroom activities in Minecraft Education",
+  "dependencies": {
+    "core": "*"
+  },
+  "files": [
+    "main.ts",
+    "README.md"
+  ],
+  "public": true,
+  "preferredEditor": "blocksprj"
+}

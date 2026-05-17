@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "SuperHero Agent Resource Pack",
+    "description": "Visuals for the SuperHero Agent companion",
+    "uuid": "e7910e14-8afb-40cd-acab-935b92c26e51",
+    "version": [1, 2, 0],
+    "min_engine_version": [1, 21, 130]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "e33c0813-6583-4d04-b3ae-1caa4c9ed7bb",
+      "version": [1, 2, 0]
+    }
+  ]
+}

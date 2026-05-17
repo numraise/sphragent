@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Temporary / generated
+*.tmp
+*.bak
+*.zip
+
+# Keep release artifacts that belong in this repo
+!releases/*.mcaddon
+!releases/*.mcpack

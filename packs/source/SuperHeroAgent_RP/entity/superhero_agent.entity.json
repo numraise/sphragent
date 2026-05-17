@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "mcblock:superhero_agent",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/superhero_agent" },
+      "geometry": { "default": "geometry.robo_tnt" },
+      "render_controllers": ["controller.render.default"],
+      "spawn_egg": {
+        "base_color": "#2457D6",
+        "overlay_color": "#FFE45E"
+      }
+    }
+  }
+}
