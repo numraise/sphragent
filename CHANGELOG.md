@@ -5,6 +5,13 @@
 - Documented the current split between script-backed features and pure gameplay behavior
 - Added release-planning notes for a possible script-free add-on path or any build that requires experimental features
 
+## 1.5.0 - 2026-05-17
+
+- Reworked SH locomotion to use flying/hover navigation instead of gravityless ground walking
+- Restored proactive target pursuit with `move_towards_target`
+- Restored explicit target retention radius for hostile-mob combat
+- Promoted the native combat path as the reliable Education-compatible baseline
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release

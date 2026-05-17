@@ -6,6 +6,27 @@ const commandPrefix = "#sphr ";
 const strengthByHero = new Map();
 const modeByHero = new Map();
 const lastLightByHero = new Map();
+const lastFollowNoticeByHero = new Map();
+let announcedLoaded = false;
+let followLoopTick = 0;
+
+function safe(action) {
+  try {
+    return action();
+  } catch {
+    return undefined;
+  }
+}
+
+function tell(player, message) {
+  safe(() => player.sendMessage(message));
+}
+
+function announceLoaded() {
+  if (announcedLoaded) return;
+  announcedLoaded = true;
+  safe(() => world.sendMessage("\u00a7b[SH] SuperHeroAgent script loaded."));
+}
 
 function ownerTagFor(playerName) {
   return "hero_owner_" + playerName.replace(/[^A-Za-z0-9_]/g, "_");
@@ -14,7 +35,10 @@ function ownerTagFor(playerName) {
 function allHeroes() {
   const ids = ["overworld", "nether", "the_end"];
   const result = [];
-  for (const id of ids) result.push(...world.getDimension(id).getEntities({ type: HERO_ID }));
+  for (const id of ids) {
+    const heroes = safe(() => world.getDimension(id).getEntities({ type: HERO_ID }));
+    if (heroes) result.push(...heroes);
+  }
   return result;
 }
 
@@ -76,8 +100,18 @@ function sideLocation(player) {
 function updateName(hero, owner) {
   const health = hero.getComponent("minecraft:health");
   const hp = health ? Math.ceil(health.currentValue) : "?";
-  const maxHp = health ? Math.ceil(health.effectiveMax) : "?";
-  hero.nameTag = owner.name + "'s SH | HP " + hp + "/" + maxHp + " | STR " + getStrength(hero);
+  const maxHp = health ? Math.ceil(health.effectiveMax ?? health.defaultValue ?? health.currentValue) : "?";
+  hero.nameTag =
+    "\u00a7b" +
+    owner.name +
+    "'s SH \u00a77| \u00a7aHP " +
+    hp +
+    "/" +
+    maxHp +
+    " \u00a77| \u00a7eSTR " +
+    getStrength(hero) +
+    " \u00a77| \u00a7d" +
+    getMode(hero).toUpperCase();
 }
 
 function clearLight(hero) {
@@ -106,72 +140,112 @@ function placeLight(hero) {
 }
 
 function nearestMonster(hero, radius) {
-  const monsters = hero.dimension.getEntities({
-    location: hero.location,
-    maxDistance: radius,
-    families: ["monster"]
-  });
+  const monsters =
+    safe(() =>
+      hero.dimension.getEntities({
+        location: hero.location,
+        maxDistance: radius,
+        families: ["monster"]
+      })
+    ) || [];
   return monsters.find((entity) => entity.typeId !== HERO_ID);
 }
 
 function fightPulse(hero) {
   const target = nearestMonster(hero, 6);
-  if (!target) return;
-  try {
-    target.applyDamage(4);
+  safe(() => {
     const rotation = hero.getRotation();
-    hero.setRotation({ x: rotation.x, y: rotation.y + 90 });
+    hero.setRotation({ x: rotation.x, y: rotation.y + 135 });
     hero.addEffect("speed", 20, { amplifier: 1, showParticles: true });
     hero.dimension.spawnParticle("minecraft:totem_particle", hero.location);
     hero.dimension.spawnParticle("minecraft:critical_hit_emitter", hero.location);
-  } catch {}
+  });
+  if (!target) return;
+  safe(() => {
+    target.applyDamage(4);
+    hero.dimension.spawnParticle("minecraft:critical_hit_emitter", target.location);
+  });
 }
 
 function claimHero(hero, player) {
   const existing = heroOwnedBy(player);
   if (existing && existing.id !== hero.id) {
-    existing.teleport(sideLocation(player), { dimension: player.dimension });
-    updateName(existing, player);
-    hero.remove();
-    player.sendMessage("Your SH has returned to you.");
+    safe(() => existing.teleport(sideLocation(player), { dimension: player.dimension }));
+    safe(() => updateName(existing, player));
+    safe(() => hero.remove());
+    tell(player, "\u00a7b[SH] Your SH has returned to you.");
     return;
   }
 
-  hero.addTag(ownerTagFor(player.name));
+  safe(() => hero.addTag(ownerTagFor(player.name)));
   setStrength(hero, DEFAULT_STRENGTH);
   setMode(hero, "fight");
   const tameable = hero.getComponent("minecraft:tameable");
-  if (tameable) tameable.tame(player);
-  hero.teleport(sideLocation(player), { dimension: player.dimension });
-  updateName(hero, player);
-  player.sendMessage("Your SH is ready.");
+  if (tameable) safe(() => tameable.tame(player));
+  safe(() => hero.teleport(sideLocation(player), { dimension: player.dimension }));
+  safe(() => updateName(hero, player));
+  tell(player, "\u00a7b[SH] Your SH is ready.");
 }
 
 function commandHero(player, command) {
   const hero = heroOwnedBy(player);
   if (!hero) {
-    player.sendMessage("No SH found.");
+    tell(player, "\u00a7b[SH] No SH found.");
     return;
   }
 
   if (command === "fight") {
-    hero.triggerEvent("mcblock:fight");
+    safe(() => hero.triggerEvent("mcblock:fight"));
     setMode(hero, "fight");
-    player.sendMessage("SH: fight mode.");
+    tell(player, "\u00a7b[SH] Fight mode: spinning for monsters.");
   } else if (command === "defend") {
-    hero.triggerEvent("mcblock:defend");
+    safe(() => hero.triggerEvent("mcblock:defend"));
     setMode(hero, "defend");
-    player.sendMessage("SH: defend mode.");
+    tell(player, "\u00a7b[SH] Defend mode.");
   } else if (command === "heal") {
     const health = player.getComponent("minecraft:health");
-    if (health) health.resetToMaxValue();
-    player.sendMessage("SH healed you.");
+    if (health) safe(() => health.resetToMaxValue());
+    tell(player, "\u00a7b[SH] Healed you.");
   } else if (command === "light") {
-    hero.triggerEvent("mcblock:defend");
+    safe(() => hero.triggerEvent("mcblock:defend"));
     setMode(hero, "light");
-    player.sendMessage("SH: light mode.");
+    tell(player, "\u00a7b[SH] Light mode.");
+  } else {
+    tell(player, "\u00a7b[SH] Commands: fight, defend, heal, light.");
   }
 }
+
+function distanceSquared(a, b) {
+  const dx = a.x - b.x;
+  const dy = a.y - b.y;
+  const dz = a.z - b.z;
+  return dx * dx + dy * dy + dz * dz;
+}
+
+function followOwner(hero, owner) {
+  const destination = sideLocation(owner);
+  const crossedDimensions = hero.dimension.id !== owner.dimension.id;
+  const movedFar = crossedDimensions || distanceSquared(hero.location, destination) > 2.25;
+  const oldLocation = hero.location;
+  const oldDimension = hero.dimension;
+
+  safe(() => hero.teleport(destination, { dimension: owner.dimension }));
+
+  if (!movedFar) return;
+  safe(() => oldDimension.spawnParticle("minecraft:totem_particle", oldLocation));
+  safe(() => owner.dimension.spawnParticle("minecraft:totem_particle", destination));
+
+  const lastNotice = lastFollowNoticeByHero.get(hero.id) || -1000;
+  if (followLoopTick - lastNotice >= 5) {
+    tell(owner, "\u00a7b[SH] Following at your side.");
+    lastFollowNoticeByHero.set(hero.id, followLoopTick);
+  }
+}
+
+if (world.afterEvents.worldLoad) {
+  world.afterEvents.worldLoad.subscribe(announceLoaded);
+}
+system.run(announceLoaded);
 
 world.afterEvents.entitySpawn.subscribe((event) => {
   const entity = event.entity;
@@ -189,12 +263,13 @@ world.beforeEvents.chatSend.subscribe((event) => {
 });
 
 system.runInterval(() => {
+  followLoopTick++;
   for (const hero of allHeroes()) {
     const owner = getOwner(hero);
     if (!owner) continue;
 
-    hero.teleport(sideLocation(owner), { dimension: owner.dimension });
-    updateName(hero, owner);
+    followOwner(hero, owner);
+    safe(() => updateName(hero, owner));
 
     if (getMode(hero) === "fight") {
       clearLight(hero);
