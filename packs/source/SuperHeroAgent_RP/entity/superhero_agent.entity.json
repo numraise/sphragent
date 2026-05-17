@@ -5,7 +5,7 @@
       "identifier": "mcblock:superhero_agent",
       "materials": { "default": "entity_alphatest" },
       "textures": { "default": "textures/entity/superhero_agent" },
-      "geometry": { "default": "geometry.robo_tnt" },
+      "geometry": { "default": "geometry.superhero_agent" },
       "render_controllers": ["controller.render.default"],
       "spawn_egg": {
         "base_color": "#2457D6",
