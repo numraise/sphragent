@@ -12,6 +12,11 @@
 - Renamed the localized entity display name to `SH`
 - Kept script-backed features separate from the stable native behavior path
 
+## 1.4.1 - 2026-05-17
+
+- Added visible version numbers to in-game pack names to make duplicate imports obvious
+- Renamed pack labels to shorter `SH Agent ...` names
+
 ## 1.3.1 - 2026-05-17
 
 - Reworked runtime state handling to avoid fragile dynamic-property behavior
