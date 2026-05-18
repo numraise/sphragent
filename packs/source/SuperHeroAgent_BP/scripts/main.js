@@ -256,12 +256,6 @@ world.afterEvents.entitySpawn.subscribe((event) => {
   });
 });
 
-world.beforeEvents.chatSend.subscribe((event) => {
-  if (!event.message.startsWith(commandPrefix)) return;
-  event.cancel = true;
-  commandHero(event.sender, event.message.substring(commandPrefix.length).trim());
-});
-
 system.runInterval(() => {
   followLoopTick++;
   for (const hero of allHeroes()) {
@@ -287,3 +281,20 @@ system.runInterval(() => {
     }
   }
 }, 20);
+
+// Register chat controls last, and only when the runtime exposes them.
+// In some runtimes chatSend is unavailable; the core follow/combat loop must still run.
+safe(() => {
+  if (world.beforeEvents && world.beforeEvents.chatSend) {
+    world.beforeEvents.chatSend.subscribe((event) => {
+      if (!event.message.startsWith(commandPrefix)) return;
+      event.cancel = true;
+      commandHero(event.sender, event.message.substring(commandPrefix.length).trim());
+    });
+  } else if (world.afterEvents && world.afterEvents.chatSend) {
+    world.afterEvents.chatSend.subscribe((event) => {
+      if (!event.message.startsWith(commandPrefix)) return;
+      commandHero(event.sender, event.message.substring(commandPrefix.length).trim());
+    });
+  }
+});

@@ -12,6 +12,12 @@
 - Restored explicit target retention radius for hostile-mob combat
 - Promoted the native combat path as the reliable Education-compatible baseline
 
+## 1.5.1 - 2026-05-18
+
+- Moved the live follow/combat loop before optional chat-command registration
+- Guarded pre-release chat events so an unavailable chat API no longer prevents HP refresh, follow, fight pulse, or light mode loops
+- Added an after-chat fallback when before-chat is unavailable
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release
