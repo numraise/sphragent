@@ -35,6 +35,15 @@ Each player gets one personal hero that follows them, protects them from hostile
 | `gold ingot` | upgrade to Level 3 |
 | `diamond` | upgrade to Level 4 |
 
+## Hero Core
+
+Use the special `Hero Core` item on SH to:
+
+- heal SH
+- restore Strength
+- refresh local light
+- cycle SH mode: `FIGHT → DEFEND → HEAL`
+
 ## MakeCode command blocks
 
 - `SuperHero Agent fight`
@@ -58,7 +67,7 @@ releases/                     Ready-to-import mcaddon/mcpack files
 ## MakeCode extension
 
 The MakeCode extension is intentionally Member-safe.  
-It avoids slash commands and focuses on classroom flow:
+It avoids slash commands and focuses on classroom flow. In Minecraft Education, the gameplay-native `Hero Core` is the recommended way to control SH because the MakeCode chat bridge is not reliable in every runtime:
 
 - show controls
 - explain the power path

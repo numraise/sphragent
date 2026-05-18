@@ -43,6 +43,12 @@
 - Restored Member-safe MakeCode control blocks by sending `#sphr ...` chat messages instead of operator-only `scriptevent` commands
 - Kept the hardened chat listeners so mode changes can update the SH name tag live
 
+## 1.8.0 - 2026-05-18
+
+- Added the `Hero Core` custom item
+- Hero Core interactions heal SH, restore Strength, refresh light, and cycle `FIGHT → DEFEND → HEAL`
+- Documented Hero Core as the recommended Member-safe control path in Minecraft Education
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release

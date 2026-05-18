@@ -1,2 +1,3 @@
 entity.mcblock:superhero_agent.name=SH
 item.spawn_egg.entity.mcblock:superhero_agent.name=Spawn SH
+item.mcblock:hero_core.name=Hero Core

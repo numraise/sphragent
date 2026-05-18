@@ -94,6 +94,30 @@
       "minecraft:interact": {
         "interactions": [
           {
+            "interact_text": "Use Hero Core",
+            "health_amount": 8,
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "has_equipment",
+                    "subject": "other",
+                    "domain": "hand",
+                    "value": "mcblock:hero_core"
+                  }
+                ]
+              },
+              "event": "mcblock:core_use",
+              "target": "self"
+            },
+            "particle_on_start": {
+              "particle_type": "minecraft:totem_particle",
+              "particle_y_offset": 0.6,
+              "particle_offset_towards_interactor": true
+            },
+            "play_sounds": "random.levelup"
+          },
+          {
             "interact_text": "Upgrade with Iron",
             "on_interact": {
               "filters": { "all_of": [{ "test": "has_equipment", "subject": "other", "domain": "hand", "value": "minecraft:iron_ingot" }] },
@@ -160,6 +184,9 @@
       "mcblock:upgrade_level_4": {
         "remove": { "component_groups": ["mcblock:level_1", "mcblock:level_2", "mcblock:level_3"] },
         "add": { "component_groups": ["mcblock:level_4"] }
+      },
+      "mcblock:core_use": {
+        "add": { "component_groups": ["mcblock:owned"] }
       }
     }
   }

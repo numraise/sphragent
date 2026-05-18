@@ -72,6 +72,13 @@ function setMode(hero, mode) {
   modeByHero.set(hero.id, mode);
 }
 
+function nextCoreMode(hero) {
+  const current = getMode(hero);
+  if (current === "fight") return "defend";
+  if (current === "defend") return "heal";
+  return "fight";
+}
+
 function nearestPlayer(entity) {
   let best;
   let bestDistance = Number.MAX_VALUE;
@@ -327,6 +334,10 @@ system.runInterval(() => {
       }
     } else {
       clearLight(hero);
+      if (getMode(hero) === "heal") {
+        const ownerHealth = owner.getComponent("minecraft:health");
+        if (ownerHealth) safe(() => ownerHealth.resetToMaxValue());
+      }
     }
   }
 }, 20);
@@ -345,5 +356,24 @@ safe(() => {
       if (!event.message.startsWith(commandPrefix)) return;
       commandHero(event.sender, event.message.substring(commandPrefix.length).trim());
     });
+  }
+});
+
+safe(() => {
+  if (world.afterEvents && world.afterEvents.dataDrivenEntityTrigger) {
+    world.afterEvents.dataDrivenEntityTrigger.subscribe((event) => {
+      if (event.eventId !== "mcblock:core_use") return;
+      const hero = event.entity;
+      if (!hero || hero.typeId !== HERO_ID) return;
+      setStrength(hero, getStrength(hero) + 20);
+      setMode(hero, nextCoreMode(hero));
+      clearLight(hero);
+      placeLight(hero);
+      const owner = getOwner(hero);
+      if (owner) {
+        safe(() => updateName(hero, owner));
+        tell(owner, "\u00a7b[SH] Hero Core: healed, powered, light restored, mode " + getMode(hero).toUpperCase() + ".");
+      }
+    }, { entityTypes: [HERO_ID], eventTypes: ["mcblock:core_use"] });
   }
 });
