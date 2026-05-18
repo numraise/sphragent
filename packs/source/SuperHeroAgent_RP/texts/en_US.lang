@@ -1,5 +1,5 @@
 entity.mcblock:superhero_agent.name=SH
-item.spawn_egg.entity.mcblock:superhero_agent.name=Spawn SH
+item.spawn_egg.entity.mcblock:superhero_agent.name=Spawn Super Hero
 item.mcblock:hero_core.name=Hero Core
 item.mcblock:hero_hp_chip.name=Hero HP Chip
 item.mcblock:hero_strength_chip.name=Hero Strength Chip

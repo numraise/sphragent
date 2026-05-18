@@ -88,6 +88,13 @@
 - Added `Hero HP Chip`, `Hero Strength Chip`, and `Hero Light Chip`
 - Added item-driven upgrades for HP, Strength, and light level
 
+## 2.5.0 - 2026-05-18
+
+- Removed max-HP denominator from the SH name tag
+- Renamed the spawn egg to `Spawn Super Hero`
+- Increased FIGHT pursuit range and chase speed for more aggressive engagement
+- Reduced idle visual noise while keeping DEFEND feedback visible
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release

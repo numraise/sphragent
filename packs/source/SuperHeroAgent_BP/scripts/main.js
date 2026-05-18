@@ -125,15 +125,12 @@ function sideLocation(player) {
 function updateName(hero, owner) {
   const health = hero.getComponent("minecraft:health");
   const hp = health ? Math.ceil(health.currentValue) : "?";
-  const maxHp = health ? Math.ceil(health.effectiveMax ?? health.defaultValue ?? health.currentValue) : "?";
   const nameColor = (hurtTintUntilByHero.get(hero.id) || 0) > followLoopTick ? "\u00a7c" : "\u00a7b";
   hero.nameTag =
     nameColor +
     owner.name +
     "'s SH \u00a77| \u00a7aHP " +
     hp +
-    "/" +
-    maxHp +
     " \u00a77| \u00a7eSTR " +
     getStrength(hero) +
     " \u00a77| \u00a7d" +
