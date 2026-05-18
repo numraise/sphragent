@@ -1,13 +1,16 @@
 import { world, system } from "@minecraft/server";
 
 const HERO_ID = "mcblock:superhero_agent";
-const DEFAULT_STRENGTH = 100;
+const DEFAULT_STRENGTH = 10;
+const MAX_STRENGTH = 100;
 const commandPrefix = "#sphr ";
 const strengthByHero = new Map();
 const modeByHero = new Map();
 const lastLightByHero = new Map();
 const lastFollowNoticeByHero = new Map();
 const hurtTintUntilByHero = new Map();
+const bonusHealthByHero = new Map();
+const lightLevelByHero = new Map();
 let announcedLoaded = false;
 let followLoopTick = 0;
 
@@ -61,7 +64,19 @@ function getStrength(hero) {
 }
 
 function setStrength(hero, value) {
-  strengthByHero.set(hero.id, Math.max(0, Math.min(DEFAULT_STRENGTH, Math.floor(value))));
+  strengthByHero.set(hero.id, Math.max(0, Math.min(MAX_STRENGTH, Math.floor(value))));
+}
+
+function getBonusHealth(hero) {
+  return bonusHealthByHero.get(hero.id) || 0;
+}
+
+function getLightLevel(hero) {
+  return lightLevelByHero.get(hero.id) || 10;
+}
+
+function setLightLevel(hero, value) {
+  lightLevelByHero.set(hero.id, Math.max(1, Math.min(15, Math.floor(value))));
 }
 
 function getMode(hero) {
@@ -144,7 +159,7 @@ function placeLight(hero) {
   };
   try {
     hero.dimension.runCommand(
-      `setblock ${location.x} ${location.y} ${location.z} light_block ["block_light_level"=15] replace air`
+      `setblock ${location.x} ${location.y} ${location.z} light_block ["block_light_level"=${getLightLevel(hero)}] replace air`
     );
     lastLightByHero.set(hero.id, { dimension: hero.dimension, location });
   } catch {}
@@ -210,6 +225,7 @@ function claimHero(hero, player) {
 
   safe(() => hero.addTag(ownerTagFor(player.name)));
   setStrength(hero, DEFAULT_STRENGTH);
+  setLightLevel(hero, 10);
   setMode(hero, "fight");
   const tameable = hero.getComponent("minecraft:tameable");
   if (tameable) safe(() => tameable.tame(player));
@@ -410,5 +426,35 @@ safe(() => {
         tell(owner, "\u00a7b[SH] Hero Core: healed, powered, light restored, mode " + getMode(hero).toUpperCase() + ".");
       }
     }, { entityTypes: [HERO_ID], eventTypes: ["mcblock:core_use"] });
+  }
+});
+
+safe(() => {
+  if (world.afterEvents && world.afterEvents.dataDrivenEntityTrigger) {
+    world.afterEvents.dataDrivenEntityTrigger.subscribe((event) => {
+      const hero = event.entity;
+      if (!hero || hero.typeId !== HERO_ID) return;
+      const health = hero.getComponent("minecraft:health");
+      const owner = getOwner(hero);
+
+      if (event.eventId === "mcblock:hp_chip") {
+        bonusHealthByHero.set(hero.id, getBonusHealth(hero) + 10);
+        safe(() => hero.addEffect("health_boost", 120000, { amplifier: Math.max(0, Math.floor(getBonusHealth(hero) / 10) - 1), showParticles: true }));
+        if (health) safe(() => health.setCurrentValue(health.effectiveMax ?? health.defaultValue ?? health.currentValue));
+        if (owner) tell(owner, "\u00a7b[SH] HP Chip installed: +10 HP.");
+      }
+
+      if (event.eventId === "mcblock:strength_chip") {
+        strengthByHero.set(hero.id, getStrength(hero) + 5);
+        if (owner) tell(owner, "\u00a7b[SH] Strength Chip installed: +5 STR.");
+      }
+
+      if (event.eventId === "mcblock:light_chip") {
+        setLightLevel(hero, getLightLevel(hero) + 1);
+        if (owner) tell(owner, "\u00a7b[SH] Light Chip installed: light " + getLightLevel(hero) + ".");
+      }
+
+      if (owner) safe(() => updateName(hero, owner));
+    }, { entityTypes: [HERO_ID], eventTypes: ["mcblock:hp_chip", "mcblock:strength_chip", "mcblock:light_chip"] });
   }
 });

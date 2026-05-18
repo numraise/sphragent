@@ -128,6 +128,36 @@
             "play_sounds": "random.levelup"
           },
           {
+            "interact_text": "Install HP Chip",
+            "on_interact": {
+              "filters": { "all_of": [{ "test": "has_equipment", "subject": "other", "domain": "hand", "value": "mcblock:hero_hp_chip" }] },
+              "event": "mcblock:hp_chip",
+              "target": "self"
+            },
+            "use_item": true,
+            "play_sounds": "random.levelup"
+          },
+          {
+            "interact_text": "Install Strength Chip",
+            "on_interact": {
+              "filters": { "all_of": [{ "test": "has_equipment", "subject": "other", "domain": "hand", "value": "mcblock:hero_strength_chip" }] },
+              "event": "mcblock:strength_chip",
+              "target": "self"
+            },
+            "use_item": true,
+            "play_sounds": "random.levelup"
+          },
+          {
+            "interact_text": "Install Light Chip",
+            "on_interact": {
+              "filters": { "all_of": [{ "test": "has_equipment", "subject": "other", "domain": "hand", "value": "mcblock:hero_light_chip" }] },
+              "event": "mcblock:light_chip",
+              "target": "self"
+            },
+            "use_item": true,
+            "play_sounds": "random.levelup"
+          },
+          {
             "interact_text": "Upgrade with Iron",
             "on_interact": {
               "filters": { "all_of": [{ "test": "has_equipment", "subject": "other", "domain": "hand", "value": "minecraft:iron_ingot" }] },
@@ -196,6 +226,15 @@
         "add": { "component_groups": ["mcblock:level_4"] }
       },
       "mcblock:core_use": {
+        "add": { "component_groups": ["mcblock:owned"] }
+      },
+      "mcblock:hp_chip": {
+        "add": { "component_groups": ["mcblock:owned"] }
+      },
+      "mcblock:strength_chip": {
+        "add": { "component_groups": ["mcblock:owned"] }
+      },
+      "mcblock:light_chip": {
         "add": { "component_groups": ["mcblock:owned"] }
       },
       "mcblock:set_fight": {

@@ -4,6 +4,15 @@
   "texture_data": {
     "hero_core": {
       "textures": "textures/items/hero_core"
+    },
+    "hero_hp_chip": {
+      "textures": "textures/items/hero_hp_chip"
+    },
+    "hero_strength_chip": {
+      "textures": "textures/items/hero_strength_chip"
+    },
+    "hero_light_chip": {
+      "textures": "textures/items/hero_light_chip"
     }
   }
 }

@@ -82,6 +82,12 @@
 - Anchored SH follow height to the player's foot level
 - Added a command-based Resistance fallback in DEFEND mode for Minecraft Education runtime compatibility
 
+## 2.4.0 - 2026-05-18
+
+- Changed starting Strength from `100` to `10`
+- Added `Hero HP Chip`, `Hero Strength Chip`, and `Hero Light Chip`
+- Added item-driven upgrades for HP, Strength, and light level
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release
