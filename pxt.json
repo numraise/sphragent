@@ -1,7 +1,7 @@
 {
   "name": "sphragent",
   "description": "Member-safe MakeCode helper blocks for SuperHero Agent classroom activities in Minecraft Education",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "dependencies": {
     "core": "*",
     "builder": "*"

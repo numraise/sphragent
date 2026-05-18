@@ -46,7 +46,13 @@ Use the special `Hero Core` item on SH to:
 
 ## MakeCode command blocks
 
+- `SuperHero Agent fight`
+- `SuperHero Agent defend`
+- `SuperHero Agent heal player`
+- `show SuperHero Agent status`
 - `SuperHero Agent light mode`
+
+The command blocks now use temporary marker blocks under the player as the bridge to the add-on, instead of relying on chat events.
 
 `light mode` creates local illumination around the hero while gradually draining Strength.
 

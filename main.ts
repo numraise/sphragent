@@ -66,10 +66,38 @@ namespace superHeroAgent {
         player.say("SuperHero team success!")
     }
 
+    //% blockId=superhero_fight
+    //% block="SuperHero Agent fight"
+    //% weight=86
+    export function fight(): void {
+        blocks.place(blocks.blockByName("redstone_block"), pos(0, -1, 0))
+    }
+
+    //% blockId=superhero_defend
+    //% block="SuperHero Agent defend"
+    //% weight=84
+    export function defend(): void {
+        blocks.place(blocks.blockByName("lapis_block"), pos(0, -1, 0))
+    }
+
+    //% blockId=superhero_heal_player
+    //% block="SuperHero Agent heal player"
+    //% weight=82
+    export function healPlayer(): void {
+        blocks.place(blocks.blockByName("emerald_block"), pos(0, -1, 0))
+    }
+
+    //% blockId=superhero_status
+    //% block="show SuperHero Agent status"
+    //% weight=81
+    export function status(): void {
+        blocks.place(blocks.blockByName("gold_block"), pos(0, -1, 0))
+    }
+
     //% blockId=superhero_light
     //% block="SuperHero Agent light mode"
     //% weight=80
     export function lightMode(): void {
-        player.say("#sphr light")
+        blocks.place(blocks.blockByName("glowstone"), pos(0, -1, 0))
     }
 }

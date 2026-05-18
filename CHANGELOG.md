@@ -5,6 +5,13 @@
 - Documented the current split between script-backed features and pure gameplay behavior
 - Added release-planning notes for a possible script-free add-on path or any build that requires experimental features
 
+## 2.7.0 - 2026-05-18
+
+- Restored the `fight`, `defend`, and `heal player` MakeCode blocks
+- Added `show SuperHero Agent status` as a useful live-refresh block
+- Replaced the unreliable chat bridge with temporary under-foot marker blocks that the add-on consumes immediately
+- Reused the same in-game command path for marker-triggered fight/defend/heal actions so labels and behavior stay in sync
+
 ## 1.5.0 - 2026-05-17
 
 - Reworked SH locomotion to use flying/hover navigation instead of gravityless ground walking

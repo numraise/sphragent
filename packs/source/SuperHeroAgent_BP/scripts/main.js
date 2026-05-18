@@ -295,6 +295,50 @@ function followOwner(hero, owner) {
   }
 }
 
+function markerLocation(player) {
+  return {
+    x: Math.floor(player.location.x),
+    y: Math.floor(player.location.y) - 1,
+    z: Math.floor(player.location.z)
+  };
+}
+
+function readMarker(player) {
+  const location = markerLocation(player);
+  const block = safe(() => player.dimension.getBlock(location));
+  return { block, location };
+}
+
+function clearMarker(player, location) {
+  safe(() => player.dimension.runCommand(`setblock ${location.x} ${location.y} ${location.z} air`));
+}
+
+function processMarkerCommand(player) {
+  const hero = heroOwnedBy(player);
+  if (!hero) return;
+  const { block, location } = readMarker(player);
+  if (!block) return;
+
+  if (block.typeId === "minecraft:redstone_block") {
+    commandHero(player, "fight");
+    clearMarker(player, location);
+  } else if (block.typeId === "minecraft:lapis_block") {
+    commandHero(player, "defend");
+    clearMarker(player, location);
+  } else if (block.typeId === "minecraft:emerald_block") {
+    commandHero(player, "heal");
+    clearMarker(player, location);
+  } else if (block.typeId === "minecraft:gold_block") {
+    updateName(hero, player);
+    tell(player, "\u00a7b[SH] Status refreshed.");
+    clearMarker(player, location);
+  } else if (block.typeId === "minecraft:glowstone") {
+    setMode(hero, "light");
+    tell(player, "\u00a7b[SH] Light mode.");
+    clearMarker(player, location);
+  }
+}
+
 if (world.afterEvents.worldLoad) {
   world.afterEvents.worldLoad.subscribe(announceLoaded);
 }
@@ -351,6 +395,7 @@ system.runInterval(() => {
     const owner = getOwner(hero);
     if (!owner) continue;
 
+    processMarkerCommand(owner);
     followOwner(hero, owner);
     safe(() => updateName(hero, owner));
 

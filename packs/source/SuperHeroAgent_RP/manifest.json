@@ -1,17 +1,17 @@
 {
   "format_version": 2,
   "header": {
-    "name": "SH Agent Resource Pack v2.6.0",
+    "name": "SH Agent Resource Pack v2.7.0",
     "description": "Visuals for the SH companion",
     "uuid": "e7910e14-8afb-40cd-acab-935b92c26e51",
-    "version": [2, 6, 0],
+    "version": [2, 7, 0],
     "min_engine_version": [1, 21, 130]
   },
   "modules": [
     {
       "type": "resources",
       "uuid": "e33c0813-6583-4d04-b3ae-1caa4c9ed7bb",
-      "version": [2, 6, 0]
+      "version": [2, 7, 0]
     }
   ]
 }
