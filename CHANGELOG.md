@@ -71,6 +71,12 @@
 - Lowered SH itself so its name tag appears lower in play
 - Increased DEFEND knockback strength and added visible knockback particles
 
+## 2.3.0 - 2026-05-18
+
+- Switched DEFEND knockback to the legacy `@minecraft/server` 1.x call signature actually used by this pack
+- Added visible owner particles during DEFEND to confirm the mode is active
+- Lowered SH collision height so the built-in name tag renders closer to the model
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release

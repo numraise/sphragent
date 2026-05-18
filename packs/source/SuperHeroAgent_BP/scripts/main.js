@@ -305,7 +305,7 @@ safe(() => {
         const dx = hero.location.x - source.location.x;
         const dz = hero.location.z - source.location.z;
         const len = Math.sqrt(dx * dx + dz * dz) || 1;
-        safe(() => hero.applyKnockback({ x: dx / len * 1.2, z: dz / len * 1.2 }, 0.35));
+        safe(() => hero.applyKnockback(dx / len, dz / len, 1.2, 0.35));
       }
 
       safe(() => hero.dimension.spawnParticle("minecraft:lava_particle", {
@@ -359,11 +359,16 @@ system.runInterval(() => {
         }
       } else if (getMode(hero) === "defend") {
         safe(() => owner.addEffect("resistance", 40, { amplifier: 1, showParticles: true }));
+        safe(() => owner.dimension.spawnParticle("minecraft:totem_particle", {
+          x: owner.location.x,
+          y: owner.location.y + 1,
+          z: owner.location.z
+        }));
         for (const monster of nearbyMonstersAround(owner, 4)) {
           const dx = monster.location.x - owner.location.x;
           const dz = monster.location.z - owner.location.z;
           const len = Math.sqrt(dx * dx + dz * dz) || 1;
-          safe(() => monster.applyKnockback({ x: dx / len * 3.0, z: dz / len * 3.0 }, 0.5));
+          safe(() => monster.applyKnockback(dx / len, dz / len, 3.0, 0.5));
           safe(() => owner.dimension.spawnParticle("minecraft:knockback_roar_particle", monster.location));
         }
       }
