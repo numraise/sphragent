@@ -7,6 +7,7 @@ const strengthByHero = new Map();
 const modeByHero = new Map();
 const lastLightByHero = new Map();
 const lastFollowNoticeByHero = new Map();
+const hurtTintUntilByHero = new Map();
 let announcedLoaded = false;
 let followLoopTick = 0;
 
@@ -92,7 +93,7 @@ function sideLocation(player) {
   const view = player.getViewDirection();
   return {
     x: player.location.x + view.z * 1.4,
-    y: player.location.y + 1.35,
+    y: player.location.y + 0.15,
     z: player.location.z - view.x * 1.4
   };
 }
@@ -101,8 +102,9 @@ function updateName(hero, owner) {
   const health = hero.getComponent("minecraft:health");
   const hp = health ? Math.ceil(health.currentValue) : "?";
   const maxHp = health ? Math.ceil(health.effectiveMax ?? health.defaultValue ?? health.currentValue) : "?";
+  const nameColor = (hurtTintUntilByHero.get(hero.id) || 0) > followLoopTick ? "\u00a7c" : "\u00a7b";
   hero.nameTag =
-    "\u00a7b" +
+    nameColor +
     owner.name +
     "'s SH \u00a77| \u00a7aHP " +
     hp +
@@ -153,16 +155,23 @@ function nearestMonster(hero, radius) {
 
 function fightPulse(hero) {
   const target = nearestMonster(hero, 6);
-  safe(() => {
-    const rotation = hero.getRotation();
-    hero.setRotation({ x: rotation.x, y: rotation.y + 135 });
-    hero.addEffect("speed", 20, { amplifier: 1, showParticles: true });
-    hero.dimension.spawnParticle("minecraft:totem_particle", hero.location);
-    hero.dimension.spawnParticle("minecraft:critical_hit_emitter", hero.location);
-  });
   if (!target) return;
   safe(() => {
+    const dx = target.location.x - hero.location.x;
+    const dy = target.location.y - hero.location.y;
+    const dz = target.location.z - hero.location.z;
+    const yaw = Math.atan2(-dx, dz) * 180 / Math.PI;
+    hero.setRotation({ x: 0, y: yaw + 180 });
+    for (let i = 1; i <= 4; i++) {
+      hero.dimension.spawnParticle("minecraft:critical_hit_emitter", {
+        x: hero.location.x + dx * (i / 5),
+        y: hero.location.y + 0.6 + dy * (i / 5),
+        z: hero.location.z + dz * (i / 5)
+      });
+    }
     target.applyDamage(4);
+    const rotation = hero.getRotation();
+    hero.setRotation({ x: rotation.x, y: rotation.y + 135 });
     hero.dimension.spawnParticle("minecraft:critical_hit_emitter", target.location);
   });
 }
@@ -254,6 +263,30 @@ world.afterEvents.entitySpawn.subscribe((event) => {
     const player = nearestPlayer(entity);
     if (player) claimHero(entity, player);
   });
+});
+
+safe(() => {
+  if (world.afterEvents && world.afterEvents.entityHurt) {
+    world.afterEvents.entityHurt.subscribe((event) => {
+      const hero = event.hurtEntity;
+      if (!hero || hero.typeId !== HERO_ID) return;
+      hurtTintUntilByHero.set(hero.id, followLoopTick + 8);
+
+      const source = event.damageSource && event.damageSource.damagingEntity;
+      if (source) {
+        const dx = hero.location.x - source.location.x;
+        const dz = hero.location.z - source.location.z;
+        const len = Math.sqrt(dx * dx + dz * dz) || 1;
+        safe(() => hero.applyKnockback({ x: dx / len * 1.2, z: dz / len * 1.2 }, 0.35));
+      }
+
+      safe(() => hero.dimension.spawnParticle("minecraft:lava_particle", {
+        x: hero.location.x,
+        y: hero.location.y + 0.8,
+        z: hero.location.z
+      }));
+    });
+  }
 });
 
 system.runInterval(() => {

@@ -18,6 +18,14 @@
 - Guarded pre-release chat events so an unavailable chat API no longer prevents HP refresh, follow, fight pulse, or light mode loops
 - Added an after-chat fallback when before-chat is unavailable
 
+## 1.6.0 - 2026-05-18
+
+- Removed constant combat particles; attack effects now appear only while striking a hostile mob
+- Added directional hit particles from SH toward its target
+- Added hurt knockback plus a temporary red name flash when SH is damaged
+- Lowered SH follow position to foot level
+- Removed look-at-player behavior so SH no longer turns toward the player when watched
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release
