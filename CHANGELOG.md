@@ -77,6 +77,11 @@
 - Added visible owner particles during DEFEND to confirm the mode is active
 - Lowered SH collision height so the built-in name tag renders closer to the model
 
+## 2.3.1 - 2026-05-18
+
+- Anchored SH follow height to the player's foot level
+- Added a command-based Resistance fallback in DEFEND mode for Minecraft Education runtime compatibility
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release

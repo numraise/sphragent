@@ -102,7 +102,7 @@ function nearestPlayer(entity) {
 function sideLocation(player) {
   return {
     x: player.location.x + 1.4,
-    y: player.location.y - 0.85,
+    y: Math.floor(player.location.y),
     z: player.location.z
   };
 }
@@ -359,6 +359,7 @@ system.runInterval(() => {
         }
       } else if (getMode(hero) === "defend") {
         safe(() => owner.addEffect("resistance", 40, { amplifier: 1, showParticles: true }));
+        safe(() => owner.dimension.runCommand(`effect "${owner.name}" resistance 3 1 true`));
         safe(() => owner.dimension.spawnParticle("minecraft:totem_particle", {
           x: owner.location.x,
           y: owner.location.y + 1,
