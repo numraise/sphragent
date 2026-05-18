@@ -90,11 +90,10 @@ function nearestPlayer(entity) {
 }
 
 function sideLocation(player) {
-  const view = player.getViewDirection();
   return {
-    x: player.location.x + view.z * 1.4,
+    x: player.location.x + 1.4,
     y: player.location.y + 0.15,
-    z: player.location.z - view.x * 1.4
+    z: player.location.z
   };
 }
 
@@ -239,6 +238,10 @@ function followOwner(hero, owner) {
   const oldDimension = hero.dimension;
 
   safe(() => hero.teleport(destination, { dimension: owner.dimension }));
+  safe(() => {
+    const ownerRotation = owner.getRotation();
+    hero.setRotation({ x: 0, y: ownerRotation.y });
+  });
 
   if (!movedFar) return;
   safe(() => oldDimension.spawnParticle("minecraft:totem_particle", oldLocation));

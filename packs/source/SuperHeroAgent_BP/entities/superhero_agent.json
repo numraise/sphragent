@@ -65,7 +65,7 @@
       }
     },
     "components": {
-      "minecraft:type_family": { "family": ["superhero_agent", "mob"] },
+      "minecraft:type_family": { "family": ["superhero_agent", "mob", "player"] },
       "minecraft:health": { "value": 20, "max": 20 },
       "minecraft:attack": { "damage": 4 },
       "minecraft:movement": { "value": 0.32 },

@@ -26,6 +26,12 @@
 - Lowered SH follow position to foot level
 - Removed look-at-player behavior so SH no longer turns toward the player when watched
 
+## 1.6.1 - 2026-05-18
+
+- Decoupled SH follow position from the player's camera direction so it no longer appears to dodge the player's gaze
+- Kept SH orientation aligned with the owner's facing direction
+- Added `player` to SH type families so hostile mobs that target players can also choose SH
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release
