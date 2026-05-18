@@ -59,6 +59,12 @@
 - Gave `DEFEND` a real gameplay identity: nearby hostile mobs are pushed back from the owner
 - Added a short Resistance buff to the owner while SH is in `DEFEND`
 
+## 2.1.0 - 2026-05-18
+
+- Lowered the SH name display by one block
+- Increased DEFEND pushback and strengthened the owner Resistance effect
+- Added light sound feedback for attacks, damage taken, and healing
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release

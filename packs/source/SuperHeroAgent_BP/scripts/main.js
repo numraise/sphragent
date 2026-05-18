@@ -194,6 +194,7 @@ function fightPulse(hero) {
     const rotation = hero.getRotation();
     hero.setRotation({ x: rotation.x, y: rotation.y + 135 });
     hero.dimension.spawnParticle("minecraft:critical_hit_emitter", target.location);
+    safe(() => hero.dimension.playSound("random.orb", hero.location, { volume: 0.5, pitch: 1.4 }));
   });
 }
 
@@ -312,6 +313,7 @@ safe(() => {
         y: hero.location.y + 0.8,
         z: hero.location.z
       }));
+      safe(() => hero.dimension.playSound("mob.player.hurt", hero.location, { volume: 0.45, pitch: 1.2 }));
     });
   }
 });
@@ -351,14 +353,17 @@ system.runInterval(() => {
       clearLight(hero);
       if (getMode(hero) === "heal") {
         const ownerHealth = owner.getComponent("minecraft:health");
-        if (ownerHealth) safe(() => ownerHealth.setCurrentValue(Math.min(ownerHealth.currentValue + 2, ownerHealth.effectiveMax ?? ownerHealth.defaultValue ?? ownerHealth.currentValue)));
+        if (ownerHealth) {
+          safe(() => ownerHealth.setCurrentValue(Math.min(ownerHealth.currentValue + 2, ownerHealth.effectiveMax ?? ownerHealth.defaultValue ?? ownerHealth.currentValue)));
+          safe(() => owner.dimension.playSound("random.levelup", owner.location, { volume: 0.3, pitch: 1.6 }));
+        }
       } else if (getMode(hero) === "defend") {
-        safe(() => owner.addEffect("resistance", 25, { amplifier: 0, showParticles: false }));
+        safe(() => owner.addEffect("resistance", 40, { amplifier: 1, showParticles: true }));
         for (const monster of nearbyMonstersAround(owner, 4)) {
           const dx = monster.location.x - owner.location.x;
           const dz = monster.location.z - owner.location.z;
           const len = Math.sqrt(dx * dx + dz * dz) || 1;
-          safe(() => monster.applyKnockback({ x: dx / len * 1.1, z: dz / len * 1.1 }, 0.15));
+          safe(() => monster.applyKnockback({ x: dx / len * 2.0, z: dz / len * 2.0 }, 0.35));
         }
       }
     }
