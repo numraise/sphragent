@@ -70,27 +70,27 @@ namespace superHeroAgent {
     //% block="SuperHero Agent fight"
     //% weight=86
     export function fight(): void {
-        player.say("#sphr fight")
+        player.execute("scriptevent sphr:fight")
     }
 
     //% blockId=superhero_heal_player
     //% block="SuperHero Agent heal player"
     //% weight=84
     export function healPlayer(): void {
-        player.say("#sphr heal")
+        player.execute("scriptevent sphr:heal")
     }
 
     //% blockId=superhero_defend
     //% block="SuperHero Agent defend"
     //% weight=82
     export function defend(): void {
-        player.say("#sphr defend")
+        player.execute("scriptevent sphr:defend")
     }
 
     //% blockId=superhero_light
     //% block="SuperHero Agent light mode"
     //% weight=80
     export function lightMode(): void {
-        player.say("#sphr light")
+        player.execute("scriptevent sphr:light")
     }
 }

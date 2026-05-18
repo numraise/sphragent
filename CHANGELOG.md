@@ -32,6 +32,12 @@
 - Kept SH orientation aligned with the owner's facing direction
 - Added `player` to SH type families so hostile mobs that target players can also choose SH
 
+## 1.7.0 - 2026-05-18
+
+- Made the logo/front face turn toward the owner rather than following camera direction
+- Replaced `player.say()` command bridging with `scriptevent` commands from the MakeCode extension
+- Added script-event handling for `fight`, `heal`, `defend`, and `light`
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release

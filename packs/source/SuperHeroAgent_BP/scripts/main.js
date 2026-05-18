@@ -239,8 +239,10 @@ function followOwner(hero, owner) {
 
   safe(() => hero.teleport(destination, { dimension: owner.dimension }));
   safe(() => {
-    const ownerRotation = owner.getRotation();
-    hero.setRotation({ x: 0, y: ownerRotation.y });
+    const dx = owner.location.x - hero.location.x;
+    const dz = owner.location.z - hero.location.z;
+    const yaw = Math.atan2(-dx, dz) * 180 / Math.PI;
+    hero.setRotation({ x: 0, y: yaw });
   });
 
   if (!movedFar) return;
@@ -288,6 +290,17 @@ safe(() => {
         y: hero.location.y + 0.8,
         z: hero.location.z
       }));
+    });
+  }
+});
+
+safe(() => {
+  if (system.afterEvents && system.afterEvents.scriptEventReceive) {
+    system.afterEvents.scriptEventReceive.subscribe((event) => {
+      if (!event.id || !event.id.startsWith("sphr:")) return;
+      const source = event.sourceEntity;
+      if (!source || source.typeId !== "minecraft:player") return;
+      commandHero(source, event.id.substring("sphr:".length));
     });
   }
 });
