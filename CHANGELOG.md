@@ -95,6 +95,11 @@
 - Increased FIGHT pursuit range and chase speed for more aggressive engagement
 - Reduced idle visual noise while keeping DEFEND feedback visible
 
+## 2.6.0 - 2026-05-18
+
+- In DEFEND mode, SH now loses 2 HP whenever the owner's HP increases
+- Removed non-working MakeCode control blocks for `fight`, `defend`, and `heal player`
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release

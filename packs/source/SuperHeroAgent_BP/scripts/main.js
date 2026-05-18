@@ -11,6 +11,7 @@ const lastFollowNoticeByHero = new Map();
 const hurtTintUntilByHero = new Map();
 const bonusHealthByHero = new Map();
 const lightLevelByHero = new Map();
+const lastOwnerHealthByHero = new Map();
 let announcedLoaded = false;
 let followLoopTick = 0;
 
@@ -223,6 +224,8 @@ function claimHero(hero, player) {
   safe(() => hero.addTag(ownerTagFor(player.name)));
   setStrength(hero, DEFAULT_STRENGTH);
   setLightLevel(hero, 10);
+  const ownerHealth = player.getComponent("minecraft:health");
+  if (ownerHealth) lastOwnerHealthByHero.set(hero.id, ownerHealth.currentValue);
   setMode(hero, "fight");
   const tameable = hero.getComponent("minecraft:tameable");
   if (tameable) safe(() => tameable.tame(player));
@@ -371,6 +374,15 @@ system.runInterval(() => {
           safe(() => owner.dimension.playSound("random.levelup", owner.location, { volume: 0.3, pitch: 1.6 }));
         }
       } else if (getMode(hero) === "defend") {
+        const ownerHealth = owner.getComponent("minecraft:health");
+        if (ownerHealth) {
+          const previousOwnerHealth = lastOwnerHealthByHero.get(hero.id);
+          if (previousOwnerHealth !== undefined && ownerHealth.currentValue > previousOwnerHealth) {
+            const heroHealth = hero.getComponent("minecraft:health");
+            if (heroHealth) safe(() => heroHealth.setCurrentValue(Math.max(1, heroHealth.currentValue - 2)));
+          }
+          lastOwnerHealthByHero.set(hero.id, ownerHealth.currentValue);
+        }
         safe(() => owner.addEffect("resistance", 40, { amplifier: 1, showParticles: true }));
         safe(() => owner.dimension.runCommand(`effect "${owner.name}" resistance 3 1 true`));
         safe(() => owner.dimension.spawnParticle("minecraft:totem_particle", {
@@ -386,6 +398,8 @@ system.runInterval(() => {
           safe(() => owner.dimension.spawnParticle("minecraft:knockback_roar_particle", monster.location));
         }
       }
+      const trackedOwnerHealth = owner.getComponent("minecraft:health");
+      if (trackedOwnerHealth) lastOwnerHealthByHero.set(hero.id, trackedOwnerHealth.currentValue);
     }
   }
 }, 20);

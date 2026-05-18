@@ -46,9 +46,6 @@ Use the special `Hero Core` item on SH to:
 
 ## MakeCode command blocks
 
-- `SuperHero Agent fight`
-- `SuperHero Agent heal player`
-- `SuperHero Agent defend`
 - `SuperHero Agent light mode`
 
 `light mode` creates local illumination around the hero while gradually draining Strength.
