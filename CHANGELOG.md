@@ -38,6 +38,11 @@
 - Replaced `player.say()` command bridging with `scriptevent` commands from the MakeCode extension
 - Added script-event handling for `fight`, `heal`, `defend`, and `light`
 
+## 1.7.1 - 2026-05-18
+
+- Restored Member-safe MakeCode control blocks by sending `#sphr ...` chat messages instead of operator-only `scriptevent` commands
+- Kept the hardened chat listeners so mode changes can update the SH name tag live
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release
