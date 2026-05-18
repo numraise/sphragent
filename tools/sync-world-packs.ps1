@@ -45,7 +45,12 @@ function Update-WorldPackReference {
   if (Test-Path -LiteralPath $JsonPath) {
     $raw = Get-Content -Raw -LiteralPath $JsonPath
     if ($raw.Trim()) {
-      $entries = @($raw | ConvertFrom-Json)
+      $parsed = $raw | ConvertFrom-Json
+      if ($parsed.PSObject.Properties.Name -contains "value") {
+        $entries = @($parsed.value)
+      } else {
+        $entries = @($parsed)
+      }
     }
   }
 
@@ -64,7 +69,7 @@ function Update-WorldPackReference {
     }
   }
 
-  $entries | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $JsonPath -Encoding UTF8
+  ConvertTo-Json -InputObject @($entries) -Depth 5 | Set-Content -LiteralPath $JsonPath -Encoding UTF8
 }
 
 Update-WorldPackReference `
