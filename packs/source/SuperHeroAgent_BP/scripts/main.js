@@ -162,6 +162,18 @@ function nearestMonster(hero, radius) {
   return monsters.find((entity) => entity.typeId !== HERO_ID);
 }
 
+function nearbyMonstersAround(entity, radius) {
+  return (
+    safe(() =>
+      entity.dimension.getEntities({
+        location: entity.location,
+        maxDistance: radius,
+        families: ["monster"]
+      })
+    ) || []
+  );
+}
+
 function fightPulse(hero) {
   const target = nearestMonster(hero, 6);
   if (!target) return;
@@ -340,6 +352,14 @@ system.runInterval(() => {
       if (getMode(hero) === "heal") {
         const ownerHealth = owner.getComponent("minecraft:health");
         if (ownerHealth) safe(() => ownerHealth.setCurrentValue(Math.min(ownerHealth.currentValue + 2, ownerHealth.effectiveMax ?? ownerHealth.defaultValue ?? ownerHealth.currentValue)));
+      } else if (getMode(hero) === "defend") {
+        safe(() => owner.addEffect("resistance", 25, { amplifier: 0, showParticles: false }));
+        for (const monster of nearbyMonstersAround(owner, 4)) {
+          const dx = monster.location.x - owner.location.x;
+          const dz = monster.location.z - owner.location.z;
+          const len = Math.sqrt(dx * dx + dz * dz) || 1;
+          safe(() => monster.applyKnockback({ x: dx / len * 1.1, z: dz / len * 1.1 }, 0.15));
+        }
       }
     }
   }
