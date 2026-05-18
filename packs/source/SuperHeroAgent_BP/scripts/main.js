@@ -102,7 +102,7 @@ function nearestPlayer(entity) {
 function sideLocation(player) {
   return {
     x: player.location.x + 1.4,
-    y: player.location.y + 0.15,
+    y: player.location.y - 0.85,
     z: player.location.z
   };
 }
@@ -363,7 +363,8 @@ system.runInterval(() => {
           const dx = monster.location.x - owner.location.x;
           const dz = monster.location.z - owner.location.z;
           const len = Math.sqrt(dx * dx + dz * dz) || 1;
-          safe(() => monster.applyKnockback({ x: dx / len * 2.0, z: dz / len * 2.0 }, 0.35));
+          safe(() => monster.applyKnockback({ x: dx / len * 3.0, z: dz / len * 3.0 }, 0.5));
+          safe(() => owner.dimension.spawnParticle("minecraft:knockback_roar_particle", monster.location));
         }
       }
     }
