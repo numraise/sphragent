@@ -1,0 +1,25 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.superhero_agent": {
+      "arrays": {
+        "textures": {
+          "Array.mode": [
+            "Texture.fight",
+            "Texture.defend",
+            "Texture.heal"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.mode[query.variant]"
+      ]
+    }
+  }
+}

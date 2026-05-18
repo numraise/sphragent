@@ -70,6 +70,9 @@ function getMode(hero) {
 
 function setMode(hero, mode) {
   modeByHero.set(hero.id, mode);
+  if (mode === "fight") safe(() => hero.triggerEvent("mcblock:set_fight"));
+  if (mode === "defend") safe(() => hero.triggerEvent("mcblock:set_defend"));
+  if (mode === "heal") safe(() => hero.triggerEvent("mcblock:set_heal"));
 }
 
 function nextCoreMode(hero) {
@@ -336,7 +339,7 @@ system.runInterval(() => {
       clearLight(hero);
       if (getMode(hero) === "heal") {
         const ownerHealth = owner.getComponent("minecraft:health");
-        if (ownerHealth) safe(() => ownerHealth.resetToMaxValue());
+        if (ownerHealth) safe(() => ownerHealth.setCurrentValue(Math.min(ownerHealth.currentValue + 2, ownerHealth.effectiveMax ?? ownerHealth.defaultValue ?? ownerHealth.currentValue)));
       }
     }
   }

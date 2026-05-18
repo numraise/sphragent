@@ -63,6 +63,16 @@
           ]
         }
       }
+      ,
+      "mcblock:mode_fight": {
+        "minecraft:variant": { "value": 0 }
+      },
+      "mcblock:mode_defend": {
+        "minecraft:variant": { "value": 1 }
+      },
+      "mcblock:mode_heal": {
+        "minecraft:variant": { "value": 2 }
+      }
     },
     "components": {
       "minecraft:type_family": { "family": ["superhero_agent", "mob", "player"] },
@@ -171,7 +181,7 @@
       "minecraft:behavior.random_look_around": { "priority": 8 }
     },
     "events": {
-      "minecraft:entity_spawned": { "add": { "component_groups": ["mcblock:level_1"] } },
+      "minecraft:entity_spawned": { "add": { "component_groups": ["mcblock:level_1", "mcblock:mode_fight"] } },
       "mcblock:on_tame": { "add": { "component_groups": ["mcblock:owned"] } },
       "mcblock:upgrade_level_2": {
         "remove": { "component_groups": ["mcblock:level_1", "mcblock:level_3", "mcblock:level_4"] },
@@ -187,6 +197,18 @@
       },
       "mcblock:core_use": {
         "add": { "component_groups": ["mcblock:owned"] }
+      },
+      "mcblock:set_fight": {
+        "remove": { "component_groups": ["mcblock:mode_defend", "mcblock:mode_heal"] },
+        "add": { "component_groups": ["mcblock:mode_fight"] }
+      },
+      "mcblock:set_defend": {
+        "remove": { "component_groups": ["mcblock:mode_fight", "mcblock:mode_heal"] },
+        "add": { "component_groups": ["mcblock:mode_defend"] }
+      },
+      "mcblock:set_heal": {
+        "remove": { "component_groups": ["mcblock:mode_fight", "mcblock:mode_defend"] },
+        "add": { "component_groups": ["mcblock:mode_heal"] }
       }
     }
   }

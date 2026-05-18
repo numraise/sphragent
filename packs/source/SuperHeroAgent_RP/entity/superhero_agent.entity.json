@@ -4,9 +4,13 @@
     "description": {
       "identifier": "mcblock:superhero_agent",
       "materials": { "default": "entity_alphatest" },
-      "textures": { "default": "textures/entity/superhero_agent" },
+      "textures": {
+        "fight": "textures/entity/superhero_agent_fight",
+        "defend": "textures/entity/superhero_agent_defend",
+        "heal": "textures/entity/superhero_agent_heal"
+      },
       "geometry": { "default": "geometry.superhero_agent" },
-      "render_controllers": ["controller.render.default"],
+      "render_controllers": ["controller.render.superhero_agent"],
       "spawn_egg": {
         "base_color": "#2457D6",
         "overlay_color": "#FFE45E"

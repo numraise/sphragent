@@ -49,6 +49,11 @@
 - Hero Core interactions heal SH, restore Strength, refresh light, and cycle `FIGHT → DEFEND → HEAL`
 - Documented Hero Core as the recommended Member-safe control path in Minecraft Education
 
+## 1.9.0 - 2026-05-18
+
+- Reduced HEAL mode from full restore to small periodic healing
+- Added distinct mode textures for `FIGHT`, `DEFEND`, and `HEAL`
+
 ## 1.4.0 - 2026-05-17
 
 - Bumped behavior/resource pack versions so Minecraft imports the update as a new release
